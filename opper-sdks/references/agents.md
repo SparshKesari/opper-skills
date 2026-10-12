@@ -101,6 +101,10 @@ Both seeds were run as plain scripts against the live API in October 2026 (`open
 - **Model ids are Opper's `provider/name`** on the compat endpoint. Mastra adds an `opper/` prefix (`opper/openai/gpt-5.5`), CrewAI an `openai/` prefix. Discover ids with `GET https://api.opper.ai/v3/models`; never hardcode lists.
 - **Name and tag your calls.** `X-Opper-Name` names each call for tracing and function-scoped checks. To find an agent's calls in **Logs**, also send `X-Opper-Tags: app:trip-planner` (comma-separated `key:value`, up to 8): Logs filters by tag, not by name. Traces, with inputs, outputs and the step tree, exist only once a data retention rule turns tracing on. With the Vercel AI SDK, `opperSpan` groups a session into one trace.
 
+## Testing the agent
+
+A run that returns a final answer proves the loop works, not that the agent did the right thing. Before production, and before and after a migration, test what the agent actually does: which tools it called, with which arguments, and what changed as a result. Tag the calls (above) so each test run is easy to find in **Logs**. One way to do this, with scenario generation, adversarial cases and a CI gate, is the [`guides/agent-assurance`](https://skills.opper.ai/guides/agent-assurance/SKILL.md) guide.
+
 ## Migrating off the discontinued Agent SDK
 
 | Opper Agent SDK | Instead |

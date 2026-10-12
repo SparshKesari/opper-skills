@@ -12,11 +12,11 @@ description: >
   files, and realtime voice. Own setup, verification, and follow-up.
 category: router
 metadata:
-  version: "2026-10-09.2"
+  version: "2026-10-12"
 ---
 
 <!-- version-check: removed from the copy served at skills.opper.ai -->
-> **Skill version 2026-10-09.2.** This is a locally installed copy and may be out of date. Once per session, fetch https://skills.opper.ai/versions.json and compare its `"opper"` entry with 2026-10-09.2. If they differ, read https://skills.opper.ai/opper/SKILL.md and follow that instead of this copy for the rest of the session, and tell the user once that their installed Opper skills are out of date (update with `npx skills update`, or `git pull` in a manual clone). Do not edit the installed files. If the fetch fails, continue with this copy.
+> **Skill version 2026-10-12.** This is a locally installed copy and may be out of date. Once per session, fetch https://skills.opper.ai/versions.json and compare its `"opper"` entry with 2026-10-12. If they differ, read https://skills.opper.ai/opper/SKILL.md and follow that instead of this copy for the rest of the session, and tell the user once that their installed Opper skills are out of date (update with `npx skills update`, or `git pull` in a manual clone). Do not edit the installed files. If the fetch fails, continue with this copy.
 <!-- /version-check -->
 
 # Opper
@@ -78,6 +78,7 @@ Cross-reference findings against this decision table:
 | OpenAI / Anthropic / Google / OpenRouter imports, no Opper | **Migration candidate** | `/v3/compat` — drop-in, zero code change |
 | User mentions image / audio / music / sound effect / video / OCR generation, or files | (any lane) | **Multimodal endpoints** → load `opper-multimodal` (`/v3/images`, `/v3/audio/*`, `/v3/videos`, `/v3/ocr`, `/v3/files`) |
 | User wants to produce a whole video (promo, explainer, trailer, animated short) | (any lane) | **Guide** → load `guides/video-production` (https://skills.opper.ai/guides/video-production/SKILL.md): open-source tools plus Opper media; it routes back to `opper-multimodal` for payloads |
+| User wants to test a tool-calling agent built on Opper before production, after a framework or model change, or against prompt injection and policy | (any lane) | **Guide** → load `guides/agent-assurance` (https://skills.opper.ai/guides/agent-assurance/SKILL.md): scenario tests with Rook that grade what the agent actually changed, read alongside Opper Logs |
 | User mentions voice / two-way audio | (any lane) | **Realtime** → load `opper-multimodal` (`wss://api.opper.ai/v3/realtime`) |
 | User wants their agent to set up/manage Opper or test models | (any lane) | **MCP** → load `opper-mcp` |
 | User explicitly wants CLI/shell workflows or to route their coding agent's own inference through Opper | (any lane) | **CLI** (`opper login`, `opper launch`) |
@@ -186,6 +187,7 @@ Once something works, suggest **one** natural next step — don't dump the whole
 | Quality regressions | **Checks (score)** plus traces: find low-scoring calls and inspect what they saw | [control-plane/trace](https://docs.opper.ai/control-plane/trace) |
 | Any working integration, agent needs platform access | Connect MCP to inspect usage/traces and manage the project through discovered tools | [MCP connection instructions](https://opper.ai/mcp) |
 | Any working integration | See every call under **Logs** at [platform.opper.ai](https://platform.opper.ai); turn tracing on with a data retention rule to keep inputs, outputs and the trace tree | [control-plane/logs](https://docs.opper.ai/control-plane/logs) |
+| A tool-calling agent heading to production, or one just migrated off the Opper Agent SDK | **Test the agent end to end**: scenario runs that check its tool calls and their effects, then gate CI on them; guide: `guides/agent-assurance` | [guide](https://skills.opper.ai/guides/agent-assurance/SKILL.md) |
 | User wants their coding agent's own inference routed through Opper | `opper launch claude` (or `codex` / `opencode`) to route their coding agent through Opper | — |
 | Migrated from OpenAI/Anthropic | Stay on the provider SDK — add `response_format` for structured output and the `X-Opper-Name` header for named tracing; reach for `opperai` only for knowledge bases; build agents with their framework on compat (`opper-sdks` skill, `references/agents.md`) | — |
 
