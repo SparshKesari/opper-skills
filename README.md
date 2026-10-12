@@ -22,10 +22,13 @@ Guides are community recipes: how we combine Opper with other tools to make some
 | Guide | What it covers |
 |---|---|
 | [`video-production`](./guides/video-production/) | Making videos with open-source tools (HyperFrames, GSAP, FFmpeg) and Opper media: brief and cue file, images, clips, voice, music, sound effects, captions, mixing and a measured review loop |
+| [`web-app-verification`](./guides/web-app-verification/) | Verifying web apps built on Opper in a real browser with Kane CLI (open source): plain-language acceptance criteria against local, preview and production URLs, pass/fail verdicts with replayable evidence, agent self-checks and CI |
 
 ```bash
 npx skills add opper-ai/opper-skills/guides/video-production
 curl -sL https://skills.opper.ai/guides/video-production/SKILL.md
+npx skills add opper-ai/opper-skills/guides/web-app-verification
+curl -sL https://skills.opper.ai/guides/web-app-verification/SKILL.md
 ```
 
 Start with `opper`. The entry skill figures out what you're trying to do and loads the right sub-skill, fetching it live from `https://skills.opper.ai/` if it isn't already installed locally.
